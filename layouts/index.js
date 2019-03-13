@@ -4,13 +4,14 @@ import Router from "next/router";
 import styled from 'styled-components';
 import { logoutUser } from '../auth';
 
+
 const Layout = (props) => {
    const { user = {}} = props.auth || {};
    const setLogOut = () => {
       logoutUser().then(() => Router.push("/"))
    }
    return (
-      <div>
+      <Wrapper>
          <Ul>
             <Li>
                <Link href="/">
@@ -39,7 +40,7 @@ const Layout = (props) => {
             
          </Ul>
          {props.children}
-      </div>
+      </Wrapper>
    )
 }
 
