@@ -1,6 +1,5 @@
 import Document, { Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components';
-import { getServerSideToken , getUserScript } from '../auth';
 
 export default class MyDocument extends Document {
    static async getInitialProps(ctx) {
@@ -9,12 +8,10 @@ export default class MyDocument extends Document {
          sheet.collectStyles(<App {...props} />),
       );
       const styleTags = sheet.getStyleElement();
-      const userData = await getServerSideToken(ctx.req);
-      return { ...page, styleTags , ...userData};
+      return { ...page, styleTags };
   }
 
   render () {   
-     var { user } = this.props 
     return (
       <html>
         <Head>
@@ -24,7 +21,6 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <script dangerouslySetInnerHTML={{__html: getUserScript(user)}}/>
         </body>
       </html>
     )
